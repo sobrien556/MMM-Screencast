@@ -22,7 +22,7 @@ var apps = {
 	    launch: function (launchData, config) {
 	        var url = "http://www.youtube.com/tv?"+launchData;
 	        child = spawn('npm', ['start', url, config.position, config.width, config.height], {
-  				cwd: 'modules/MMM-Screencast'
+  				cwd: 'modules/MMM-Screencast', shell: true
 			})
 			child.stdout.on('data', function(data) {
 			    console.log('screencast stdout: ' + data);
@@ -71,7 +71,7 @@ var dialServer = new dial.Server({
 			if (app && app.pid == pid) {
 				app.pid = null;
 				app.state = "stopped";
-				ipc.connectTo('screenCastWindow',() => {
+				ipc.connectTo('screenCastWindow','/tmp/MMM-Screencast.elect', () => {
     				ipc.of.screenCastWindow.on('connect',() => {
                 		ipc.of.screenCastWindow.emit('quit');
             		});

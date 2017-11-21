@@ -9,7 +9,7 @@ const position = process.argv[3]
 const width = parseInt(process.argv[4], 10)
 const height = parseInt(process.argv[5], 10)
 
-ipc.serve(() => {
+ipc.serve('/tmp/MMM-Screencast.elect',() => {
   ipc.server.on('quit', (data, socket) => {
     ipc.server.emit(socket, 'quit');
     app.quit();
